@@ -4,7 +4,6 @@ Resizable BAR / Large BAR for Intel Arc on HP systems whose BIOS has no
 Above 4G Decoding option. Linux, no BIOS modification.
 
 - [Read this first](#read-this-first)
-- [Is this your problem?](#is-this-your-problem)
 - [Does your BIOS have Above 4G Decoding?](#does-your-bios-have-above-4g-decoding)
 - [Enabling a large BAR](#enabling-a-large-bar)
 - [Arc Pro B60](#arc-pro-b60)
