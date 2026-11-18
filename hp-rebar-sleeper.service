@@ -1,0 +1,12 @@
+[Unit]
+Description=Enable the largest resizable BAR on Intel Arc GPUs, then load their drivers
+Documentation=man:setpci(8)
+Before=display-manager.service graphical.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/sbin/hp-rebar-sleeper.sh
+
+[Install]
+WantedBy=multi-user.target
