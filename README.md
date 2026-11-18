@@ -32,23 +32,7 @@ entirely, run the uninstaller and reboot.
 
 ---
 
-## Is this your problem?
 
-- Blender lists no Intel GPU under Cycles render devices, even though the card
-  is installed and the display works.
-- `sycl-ls` shows only the CPU.
-- llama.cpp, vLLM, OpenVINO and other oneAPI software cannot find the card.
-- `lspci -vv` says `BAR 2: current size: 256MB` on a card with 12 GB or more.
-- The kernel log says:
-
-      Can't resize LMEM BAR - platform support is missing
-      Using a reduced BAR size of 256MiB.
-      Consider enabling 'Resizable BAR' or similar, if available in the BIOS.
-
-  and your BIOS has no such option anywhere.
-- The system sees the card. Nothing can use it.
-
----
 
 ## Does your BIOS have Above 4G Decoding?
 
