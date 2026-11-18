@@ -32,8 +32,6 @@ entirely, run the uninstaller and reboot.
 
 ---
 
-
-
 ## Does your BIOS have Above 4G Decoding?
 
 Look for an option called **Above 4G Decoding**, **Memory Map IO above 4GB**, or
@@ -62,6 +60,16 @@ Or clone the repository, which does the same thing:
 
     git clone https://github.com/the13th-undecimber/hp-rebar-sleeper-system
     cd hp-rebar-sleeper-system
+
+Now open a terminal, go to the folder you put them in, and look at what is
+there:
+
+    cd ~/Downloads
+    ls
+
+All three names should be in that list. Your download folder is named in your
+system's language, so it may not be called `Downloads` — use whatever yours is
+called. If one of the files is missing, the installer stops and tells you which.
 
 See what it would do. This changes nothing:
 
@@ -274,7 +282,26 @@ nothing. This is an opinion, not a measurement.</sub>
 # Appendix: 36-bit machines
 
 The HP Pavilion h8 is a 2011 Sandy Bridge desktop with an i7-2700K. It works,
-with one caveat worth understanding.
+with two things worth understanding.
+
+## This h8 has a modified BIOS, for an unrelated reason
+
+The machine runs `IPISB-CH_GPU-fix-v2`, a modified BIOS flashed from Windows.
+All it does is turn legacy mode off. It does not add Above 4G Decoding, it has
+no Resizable BAR setting, and the large BAR described here does not come from
+it — that comes from the method on this page, the same as on every other
+machine listed.
+
+It is there because an Arc card carries no legacy video BIOS and will not start
+on a machine still booting in legacy mode. On a 2011 consumer board that has to
+be dealt with before anything on this page is relevant. A newer machine that can
+be put into UEFI-only mode from its own setup screen needs nothing of the kind.
+
+If you are working on an h8 of your own and an Arc card gives you no picture at
+all, that is the problem to solve first, and it is a different problem from the
+one this project is about.
+
+## There is only just enough address space
 
 Sandy Bridge addresses 36 bits, so 64 GiB of physical address space, and the
 machine has 32 GB of RAM in it. That leaves about 31 GiB free above the top of
