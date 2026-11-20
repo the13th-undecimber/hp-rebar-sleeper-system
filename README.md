@@ -146,31 +146,50 @@ All on Ubuntu 26.04.
 ### Will my other cards still work?
 
 `pci=nocrs` changes how Linux assigns addresses to **every** PCIe device, not
-just the graphics card. In testing, an NVMe SSD on a PCIe adapter card kept
-working normally and was partitioned, written and read back; and a second
-graphics card — an NVIDIA GT 1030 and a Quadro K2000, both on `nouveau`, and
-separately an Arc A310 — kept working alongside a card holding a large BAR.
-Every onboard controller on the test machines ran under it throughout: network,
-USB, SATA, audio.
+just the graphics card.
+
+As this is written, the Z230 is running three PCIe devices at once under it: a
+Pro B60 holding a 32 GiB BAR, an A310 holding a 4 GiB BAR on a different root
+port and a different driver, and an NVMe SSD on an adapter card in a third slot.
+All three work.
+
+Beyond that: an NVMe SSD on an adapter card was partitioned, written and read
+back normally on two different machines; a second graphics card — an NVIDIA
+GT 1030 and a Quadro K2000, both on `nouveau` — kept working alongside a card
+holding a large BAR; and every onboard controller on the test machines ran under
+it throughout: network, USB, SATA, audio.
 
 Add-in network cards and HBA/RAID controllers were not tested. Nothing is
 written to firmware, so if one of them misbehaves, uninstall and reboot.
 
-### HP Z240: turn integrated graphics off
+### Machines with Intel integrated graphics
 
-With integrated graphics enabled in the BIOS, the Z240 **will not start at all**
-with an Intel Arc card fitted. It stops before the OS with diagnostic code 3.3,
-"the embedded controller has timed out waiting for BIOS to return from graphics
-initialization". Seen with both an A310 and a B580.
+Whether your machine has integrated graphics depends on the **processor fitted,
+not on the model**. On a Z230 an E3-1245v3 or a Core i7-4790 has it, while an
+E3-1271v3 has none at all. Check with `lspci | grep VGA`.
 
-Turn integrated graphics off before fitting an Arc card. An NVIDIA card in the
-same slot starts fine with integrated graphics on, so this is specific to having
-both an Intel integrated GPU and an Intel Arc card.
+**On the Z240, turn it off.** With integrated graphics enabled in the BIOS that
+machine will not start at all with an Intel Arc card fitted. It stops before the
+OS with diagnostic code 3.3, "the embedded controller has timed out waiting for
+BIOS to return from graphics initialization". Seen with both an A310 and a B580.
+An NVIDIA card in the same slot starts fine with integrated graphics on, so this
+is specific to having both an Intel integrated GPU and an Intel Arc card.
 
-<sub>There is a way around it, but it is not something to rely on: start the
-machine once with a non-Intel card fitted and integrated graphics on, shut down,
-and swap the Arc card in. The firmware keeps that state until its settings are
-reset, and a CMOS clear or a BIOS update undoes it.</sub>
+Whether a Z230 with an integrated-graphics processor does the same thing was not
+tested; the Z230 here has none. If your machine stops with code 3.3, turning
+integrated graphics off is the first thing to try.
+
+There is a second, unrelated reason to keep this in mind.
+`modprobe.blacklist=i915` holds back the integrated GPU as well as an Alchemist
+card, so if the service does not run you are left with no display at all. The
+installer notices an integrated Intel GPU and blacklists only what is strictly
+needed, rather than both drivers.
+
+<sub>On the Z240 there is a way around the firmware problem, but it is not
+something to rely on: start the machine once with a non-Intel card fitted and
+integrated graphics on, shut down, and swap the Arc card in. The firmware keeps
+that state until its settings are reset, and a CMOS clear or a BIOS update
+undoes it.</sub>
 
 ## Messages you can ignore
 
@@ -243,9 +262,9 @@ The second card can be anything, another Arc or an NVIDIA card, **as long as its
 video BIOS supports UEFI**. A card old enough to have a legacy-only video BIOS
 will not come up on a machine running without CSM.
 
-Integrated graphics is not enough. The Z230 has no integrated GPU at all and
-fails in exactly the same way, so the problem is the absence of a second PCIe
-graphics card, not the absence of a display.
+Integrated graphics is not enough. The Z230 used here has no integrated GPU at
+all and fails in exactly the same way, so what the B60 needs is a second PCIe
+graphics card, not a display.
 
 ## Two Arc cards together
 
