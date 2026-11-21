@@ -37,10 +37,7 @@ Look for an option called **Above 4G Decoding**, **Memory Map IO above 4GB**, or
 something similar.
 
 - **It is there** → you do not need this project. Turn it on, then use
-  [arc-rebar](https://github.com/RodBurlamaqui/Intel-ARC-Rebar), or, on a Dell
-  Precision 5820,
-  [precision-5820-arc-b60-large-bar](https://github.com/skipzx-lab/precision-5820-arc-b60-large-bar).
-  Both are simpler than what follows.
+  [arc-rebar](https://github.com/RodBurlamaqui/Intel-ARC-Rebar) simpler than what follows.
 - **It is not there at all** → this page is for you.
 
 ---
